@@ -27,12 +27,7 @@ def lab2(cT, A, xT, B: [Annotated[int, 'Индексация с единицы']
         if k:
             differing_columns = np.any(A_B != A_B_prev, axis=0)
             num_differing_columns = np.sum(differing_columns)
-            if num_differing_columns == 1:
-                A_B_inv = lab1(A_B_inv, A_B[:, k-1], k)
-            else:
-                A_B_inv = np.linalg.inv(A_B)
-        else:
-            A_B_inv = np.linalg.inv(A_B)
+        A_B_inv = lab1(A_B_inv, A_B[:, k - 1], k) if (k and num_differing_columns == 1) else np.linalg.inv(A_B)
         A_B_prev = A_B # Вне алгоритма
         cT_B = [cT[j-1] for j in B]
         uT = np.dot(cT_B, A_B_inv)
